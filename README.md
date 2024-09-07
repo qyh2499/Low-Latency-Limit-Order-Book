@@ -1,2 +1,2 @@
-# limit_order_book
+# Limit Order Book
 Low latency limit order book in C++
