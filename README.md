@@ -1,9 +1,9 @@
 # Low Latency Limit Order Book
 Low latency limit order book in C++
 
-Architecture:
+### Architecture ([reference to](https://web.archive.org/web/20110219163448/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/):
 ```
-Order
+Order // Representing a single order
   int idNumber;
   bool buyOrSell;
   int shares;
@@ -14,23 +14,30 @@ Order
   Order *prevOrder;
   Limit *parentLimit;
 
-Limit  // representing a single limit price
+Limit  // Representing a single limit price
   int limitPrice;
   int size;
   int totalVolume;
-  Limit *parent;
-  Limit *leftChild;
-  Limit *rightChild;
+  bool buyOrSell;
   Order *headOrder;
   Order *tailOrder;
 
 Book
   Limit *buyTree;
   Limit *sellTree;
-  Limit *lowestSell;
-  Limit *highestBuy;
 ```
 
+The idea is to use a AVL tree of Limit objects ordered by limitPrice for each side (buy and sell) of the book. Each Limit object then contains a double-end linked list of Order objects, where the headOrder is the first order to arrive in the book.
+
+**Using this structure, we expect the following performance on average time:**
+
+```
+Add Order – O(log M) for the first order to add the corresponding limit to the tree, O(1) otherwise
+Cancel Order – O(1)
+Execute Order – O(1)
+GetVolumeAtLimit – O(1)
+GetBestBid/Offer – O(1)
+```
 
 Primary Sources:
 - [WK's High Frequency Trading Blog](https://web.archive.org/web/20110219163448/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/)
