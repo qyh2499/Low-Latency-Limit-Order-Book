@@ -3,10 +3,9 @@
 #include <iostream>
 
 Limit::Limit(int limitPrice, bool buyOrSell, int size, int totalVolume)
-    : limitPrice(limitPrice), buyOrSell(buyOrSell), size(size), totalVolume(totalVolume),
-      headOrder(nullptr), tailOrder(nullptr) {}
+    : limitPrice(limitPrice), buyOrSell(buyOrSell), size(size), totalVolume(totalVolume), headOrder(nullptr), tailOrder(nullptr) {}
 
-Limit::~Limit(){}
+Limit::~Limit() {}
 
 Order *Limit::getHeadOrder() const
 {
@@ -33,41 +32,6 @@ bool Limit::getBuyOrSell() const
     return buyOrSell;
 }
 
-Limit *Limit::getParent() const
-{
-    return parent;
-}
-
-Limit *Limit::getLeftChild() const
-{
-    return leftChild;
-}
-
-Limit *Limit::getRightChild() const
-{
-    return rightChild;
-}
-
-void Limit::setParent(Limit *newParent)
-{
-    parent = newParent;
-}
-
-void Limit::setLeftChild(Limit *newLeftChild)
-{
-    leftChild = newLeftChild;
-}
-
-void Limit::setRightChild(Limit *newRightChild)
-{
-    rightChild = newRightChild;
-}
-
-void Limit::partiallyFillTotalVolume(int orderedShares)
-{
-    totalVolume -= orderedShares;
-}
-
 // Add an order to the limit
 void Limit::append(Order *order)
 {
@@ -87,32 +51,20 @@ void Limit::append(Order *order)
     order->parentLimit = this;
 }
 
-void Limit::printForward() const
+void Limit::printOrders() const
 {
     Order *current = headOrder;
     while (current != nullptr)
     {
-        std::cout << current->getOrderId() << " ";
+        std::cout << current->getIdNumber() << " ";
         current = current->nextOrder;
     }
     std::cout << std::endl;
 }
 
-void Limit::printBackward() const
+void Limit::printInfoString() const
 {
-    Order *current = tailOrder;
-    while (current != nullptr)
-    {
-        std::cout << current->getOrderId() << " ";
-        current = current->prevOrder;
-    }
-    std::cout << std::endl;
-}
-
-void Limit::print() const
-{
-    std::cout << "Limit Price: " << limitPrice
-              << ", Limit Volume: " << totalVolume
-              << ", Limit Size: " << size
-              << std::endl;
+    std::cout << "Price: " << limitPrice
+              << ", Volume: " << totalVolume
+              << ", Size: " << size;
 }

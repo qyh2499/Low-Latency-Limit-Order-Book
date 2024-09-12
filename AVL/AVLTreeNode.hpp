@@ -9,21 +9,23 @@ struct AVLTreeNode
 {
     AVLTreeNode *left;
     AVLTreeNode *right;
-    const T value;
+    const int key;
+    T value;
     unsigned int height;
 
-    AVLTreeNode(T value);
+    AVLTreeNode(int key, T value);
     ~AVLTreeNode();
     void updateHeight();
     int getBalanceFactor();
 
     AVLTreeNode *leftRotate();
     AVLTreeNode *rightRotate();
+    bool operator<(const AVLTreeNode<T> &other);
 };
 
 template <class T>
-AVLTreeNode<T>::AVLTreeNode(T value)
-    : value(value), height(1), left(nullptr), right(nullptr)
+AVLTreeNode<T>::AVLTreeNode(int key, T value)
+    : key(key), value(value), height(1), left(nullptr), right(nullptr)
 {
 }
 
@@ -66,6 +68,12 @@ AVLTreeNode<T> *AVLTreeNode<T>::rightRotate()
     this->updateHeight();
     l->updateHeight();
     return l;
+}
+
+template <class T>
+bool AVLTreeNode<T>::operator<(const AVLTreeNode<T> &other)
+{
+    return key < other.key;
 }
 
 #endif

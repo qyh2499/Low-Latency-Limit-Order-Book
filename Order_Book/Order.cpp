@@ -1,13 +1,13 @@
 #include "Order.hpp"
 #include "Limit.hpp"
 
-Order::Order(int _idNumber, bool _buyOrSell, int _shares, int _limit, int _entryTime, int _eventTime)
-    : idNumber(_idNumber),
-      buyOrSell(_buyOrSell),
-      shares(_shares),
-      limit(_limit),
-      entryTime(_entryTime),
-      eventTime(_eventTime),
+Order::Order(int idNumber, bool buyOrSell, int shares, int limit, int entryTime, int eventTime)
+    : idNumber(idNumber),
+      buyOrSell(buyOrSell),
+      shares(shares),
+      limit(limit),
+      entryTime(entryTime),
+      eventTime(eventTime),
       nextOrder(nullptr),
       prevOrder(nullptr),
       parentLimit(nullptr)

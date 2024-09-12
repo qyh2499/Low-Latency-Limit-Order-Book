@@ -20,7 +20,7 @@ private:
     friend class Limit;
 
 public:
-    Order(int _idNumber, bool _buyOrSell, int _shares, int _limit, int _entryTime, int _eventTime);
+    Order(int idNumber, bool buyOrSell, int shares, int limit, int entryTime=0, int eventTime=0);
 
     int getIdNumber() const;
     int getShares() const;
