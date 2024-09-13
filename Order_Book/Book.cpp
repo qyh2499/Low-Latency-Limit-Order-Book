@@ -29,6 +29,71 @@ void Book::deleteLimit(int limitPrice, bool buyOrSell)
     tree->remove(limitPrice);
 }
 
+void Book::processMarketOrder(int orderId, bool buyOrSell, int shares)
+{
+
+    auto bookEdge = buyOrSell ? getLowestSell() : getHighestBuy();
+    while (bookEdge != nullptr && bookEdge->value.getHeadOrder()->getShares() <= shares)
+    {
+        Order *headOrder = bookEdge->value.getHeadOrder();
+        shares -= headOrder->getShares();
+        headOrder->remove();
+        if (bookEdge->value.getSize() == 0)
+        {
+            deleteLimit(bookEdge->value.getLimitPrice(), bookEdge->value.getBuyOrSell());
+        }
+        orderMap.erase(headOrder->getIdNumber());
+        delete headOrder;
+        executedOrdersCount += 1;
+        bookEdge = buyOrSell ? getLowestSell() : getHighestBuy();
+    }
+
+    if (bookEdge != nullptr && shares != 0)
+    {
+        bookEdge->value.getHeadOrder()->partiallyFillOrder(shares);
+        executedOrdersCount += 1;
+    }
+}
+
+
+int Book::processLimitOrderInMarket(int orderId, bool buyOrSell, int shares, int limitPrice)
+{
+    if (buyOrSell)
+    {
+        // BUY
+        auto lowestSell = getLowestSell();
+        while (lowestSell != nullptr && shares != 0 && lowestSell->value.getLimitPrice() <= limitPrice)
+        {
+            if (shares <= lowestSell->value.getTotalVolume())
+            {
+                processMarketOrder(orderId, buyOrSell, shares);
+                return 0;
+            } else {
+                shares -= lowestSell->value.getTotalVolume();
+                processMarketOrder(orderId, buyOrSell, lowestSell->value.getTotalVolume());
+            }
+            lowestSell = getLowestSell();
+        }
+        return shares;
+    } else {
+        // SELL
+        auto highestBuy = getHighestBuy();
+        while (highestBuy != nullptr && shares != 0 && highestBuy->value.getLimitPrice() >= limitPrice)
+        {
+            if (shares <= highestBuy->value.getTotalVolume())
+            {
+                processMarketOrder(orderId, buyOrSell, shares);
+                return 0;
+            } else {
+                shares -= highestBuy->value.getTotalVolume();
+                processMarketOrder(orderId, buyOrSell, highestBuy->value.getTotalVolume());
+            }
+        }
+        return shares;
+    }
+}
+
+
 // PUBLIC FUNCTIONS
 AVLTree<Limit> *Book::getBuyTree() const
 {
@@ -50,9 +115,18 @@ AVLTreeNode<Limit> *Book::getHighestBuy() const
     return buyTree->getMaxNode();
 }
 
+// Execute a market order
+void Book::addMarketOrder(int orderId, bool buyOrSell, int shares)
+{
+    executedOrdersCount = 0;
+    AVLTreeBalanceCount = 0;
+    processMarketOrder(orderId, buyOrSell, shares);
+}
+
 void Book::addLimitOrder(int orderId, bool buyOrSell, int shares, int limitPrice)
 {
     AVLTreeBalanceCount = 0;
+    shares = processLimitOrderInMarket(orderId, buyOrSell, shares, limitPrice);
 
     if (shares != 0)
     {
@@ -124,5 +198,5 @@ void Book::printOrderBook() const
     std::cout << "BUY TREE:" << std::endl;
     buyTree->display();
     std::cout << "SELL TREE:" << std::endl;
-    sellTree->display();    
+    sellTree->display();
 }

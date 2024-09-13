@@ -233,13 +233,21 @@ void AVLTree<T>::remove(const int key)
     root = removeHelper(root, key);
 
     // Remove from references
-    if (key == maxKey)
+    if (root == nullptr)
     {
-        maxNode = findMax(root);
+        maxNode = nullptr;
+        minNode = nullptr;
     }
-    if (key == minKey)
+    else
     {
-        minNode = findMin(root);
+        if (key == maxKey)
+        {
+            maxNode = findMax(root);
+        }
+        if (key == minKey)
+        {
+            minNode = findMin(root);
+        }
     }
     nodeMap.erase(key);
 }

@@ -32,6 +32,7 @@ public:
 
     void process();
     void remove();
+    void partiallyFillOrder(int orderShares);
 };
 
 #endif

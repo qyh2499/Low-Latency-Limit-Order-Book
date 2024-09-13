@@ -65,7 +65,7 @@ void Order::process()
 // Remove the order
 void Order::remove()
 {
-    if (!prevOrder) // This is the headOrder
+    if (prevOrder == nullptr) // This is the headOrder
     {
         parentLimit->headOrder = nextOrder;
     }
@@ -73,7 +73,7 @@ void Order::remove()
     {
         prevOrder->nextOrder = nextOrder;
     }
-    if (!nextOrder) // This is the tailOrder
+    if (nextOrder == nullptr) // This is the tailOrder
     {
         parentLimit->tailOrder = prevOrder;
     }
@@ -85,4 +85,10 @@ void Order::remove()
     // Remove counts in parantLimit
     parentLimit->size -= 1;
     parentLimit->totalVolume -= shares;
+}
+
+
+void Order::partiallyFillOrder(int orderShares) {
+    shares -= orderShares;
+    parentLimit->partiallyFillVolume(orderShares);
 }

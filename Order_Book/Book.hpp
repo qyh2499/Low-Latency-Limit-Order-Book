@@ -18,6 +18,8 @@ private:
 
     void insertLimit(int limitPrice, bool buyOrSell);
     void deleteLimit(int limitPrice, bool buyOrSell);
+    void processMarketOrder(int orderId, bool buyOrSell, int shares);
+    int processLimitOrderInMarket(int orderId, bool buyOrSell, int shares, int limitPrice);
 
 public:
     Book();
@@ -34,7 +36,7 @@ public:
     AVLTreeNode<Limit> *getHighestBuy() const;
 
     // Functions for different types of orders
-    // void addMarketOrder(int orderId, bool buyOrSell, int shares);
+    void addMarketOrder(int orderId, bool buyOrSell, int shares);
     void addLimitOrder(int orderId, bool buyOrSell, int shares, int limitPrice);
     void cancelLimitOrder(int orderId);
 

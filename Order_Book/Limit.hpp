@@ -27,6 +27,7 @@ public:
     bool getBuyOrSell() const;
 
     void append(Order *_order);
+    void partiallyFillVolume(int orderShares);
 
     void printOrders() const;
     void printInfoString() const;

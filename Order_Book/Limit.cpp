@@ -51,6 +51,11 @@ void Limit::append(Order *order)
     order->parentLimit = this;
 }
 
+void Limit::partiallyFillVolume(int orderShares) {
+    totalVolume -= orderShares;
+}
+
+
 void Limit::printOrders() const
 {
     Order *current = headOrder;
