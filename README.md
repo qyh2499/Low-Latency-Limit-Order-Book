@@ -39,11 +39,12 @@ GetVolumeAtLimit – O(1)
 GetBestBid/Offer – O(1)
 ```
 
-**Performance: Test Done with Intel i7-8565U CPU @ 1.80GHz**
+### Performance: Test Done with Intel i7-8565U CPU @ 1.80GHz
 
 The timestamps (in nanoseconds) of each directive to the limit order book is recorded and the difference is noted as the latency of an directive.
 
-![Latency Histogram](https://github.com/user-attachments/assets/b35d15dd-f2a2-47c6-928f-b6ae546248e2)
+![Latency Histogram](https://github.com/user-attachments/assets/b35d15dd-f2a2-47c6-928f-b6ae546248e2)\
+
 ![Order Type Latency](https://github.com/user-attachments/assets/9e867451-61e8-4c77-925c-d916c6e8e5f9)
 
 
