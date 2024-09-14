@@ -45,3 +45,4 @@ GetBestBid/Offer – O(1)
 - [Efficient implementation of AVLTree (Modified)](https://github.com/KadirEmreOto/AVL-Tree/tree/master)
 - [AVL Trees](https://kukuruku.co/hub/cpp/avl-trees)
 
+Order generator and other code reference from: [GitHub](https://github.com/brprojects/Limit-Order-Book)
