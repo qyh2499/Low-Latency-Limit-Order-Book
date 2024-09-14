@@ -39,9 +39,15 @@ GetVolumeAtLimit – O(1)
 GetBestBid/Offer – O(1)
 ```
 
+**Performance: Test Done with Intel i7-8565U CPU @ 1.80GHz**
+
+The timestamps (in nanoseconds) of each directive to the limit order book is recorded and the difference is noted as the latency of an directive.
+
+
 ### Primary Sources:
 - [WK's High Frequency Trading Blog](https://web.archive.org/web/20110219163448/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/)
 - [Limit Order Book Implementation in Java](https://medium.com/@mhfizt/limit-order-book-implementation-in-java-dd39821e5a4f)
 - [Efficient implementation of AVLTree (Modified)](https://github.com/KadirEmreOto/AVL-Tree/tree/master)
 - [AVL Trees](https://kukuruku.co/hub/cpp/avl-trees)
 
+Order generator and other code reference from: [GitHub](https://github.com/brprojects/Limit-Order-Book)

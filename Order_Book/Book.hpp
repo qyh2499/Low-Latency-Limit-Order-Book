@@ -4,6 +4,7 @@
 #include "../AVL/AVLTree.hpp"
 #include "Order.hpp"
 #include "Limit.hpp"
+#include <random>
 #include <unordered_map>
 
 class Limit;
@@ -43,6 +44,7 @@ public:
     // Functions that needed to be public for testing purposes
     Order *searchOrderMap(int orderId) const;
     AVLTreeNode<Limit> *searchLimitMaps(int limitPrice, bool buyOrSell) const;
+    Order *getRandomOrder(std::mt19937 gen) const;
 
     // Functions for visualising the order book
     void printBookEdges() const;

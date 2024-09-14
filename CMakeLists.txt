@@ -18,19 +18,23 @@ set(HEADERS
     ./order_book/Order.hpp
     ./AVL/AVLTree.hpp
     ./AVL/AVLTreeNode.hpp
+    ./order_generator/orderGenerator.hpp
+    ./order_generator/orderProcessTimer.hpp
 )
 
 set(SOURCES
     ./order_book/Book.cpp
     ./order_book/Limit.cpp
     ./order_book/Order.cpp
+    ./order_generator/orderGenerator.cpp
+    ./order_generator/orderProcessTimer.cpp
 )
 
 # Define the library target
 add_library(${PROJECT_NAME}_lib STATIC ${SOURCES})
 
 # Define the executable target and include SOURCES to ensure linking
-add_executable(${PROJECT_NAME} ./tests/Booktest.cpp)
+add_executable(${PROJECT_NAME} ./main.cpp)
 
 # Link the executable with the library
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_lib)

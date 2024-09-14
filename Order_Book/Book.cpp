@@ -2,6 +2,9 @@
 #include <iostream>
 #include <algorithm>
 #include <iterator>
+#include <random>
+#include <algorithm>
+
 
 Book::Book() : buyTree(new AVLTree<Limit>()), sellTree(new AVLTree<Limit>())
 {
@@ -55,7 +58,6 @@ void Book::processMarketOrder(int orderId, bool buyOrSell, int shares)
     }
 }
 
-
 int Book::processLimitOrderInMarket(int orderId, bool buyOrSell, int shares, int limitPrice)
 {
     if (buyOrSell)
@@ -68,14 +70,18 @@ int Book::processLimitOrderInMarket(int orderId, bool buyOrSell, int shares, int
             {
                 processMarketOrder(orderId, buyOrSell, shares);
                 return 0;
-            } else {
+            }
+            else
+            {
                 shares -= lowestSell->value.getTotalVolume();
                 processMarketOrder(orderId, buyOrSell, lowestSell->value.getTotalVolume());
             }
             lowestSell = getLowestSell();
         }
         return shares;
-    } else {
+    }
+    else
+    {
         // SELL
         auto highestBuy = getHighestBuy();
         while (highestBuy != nullptr && shares != 0 && highestBuy->value.getLimitPrice() >= limitPrice)
@@ -84,7 +90,9 @@ int Book::processLimitOrderInMarket(int orderId, bool buyOrSell, int shares, int
             {
                 processMarketOrder(orderId, buyOrSell, shares);
                 return 0;
-            } else {
+            }
+            else
+            {
                 shares -= highestBuy->value.getTotalVolume();
                 processMarketOrder(orderId, buyOrSell, highestBuy->value.getTotalVolume());
             }
@@ -92,7 +100,6 @@ int Book::processLimitOrderInMarket(int orderId, bool buyOrSell, int shares, int
         return shares;
     }
 }
-
 
 // PUBLIC FUNCTIONS
 AVLTree<Limit> *Book::getBuyTree() const
@@ -184,6 +191,22 @@ AVLTreeNode<Limit> *Book::searchLimitMaps(int limitPrice, bool buyOrSell) const
         std::cout << "No " << (buyOrSell ? "buy " : "sell ") << "limit at " << limitPrice << std::endl;
     }
     return it;
+}
+
+Order *Book::getRandomOrder(std::mt19937 gen) const
+{
+    if (orderMap.size() > 0)
+    {
+        // Generate a random index within the range of the hash set size
+        std::uniform_int_distribution<> mapDist(0, (int)(orderMap.size() - 1));
+        int randomIndex = mapDist(gen);
+
+        // Access the element at the random index directly
+        auto it = orderMap.begin();
+        std::advance(it, randomIndex);
+        return it->second;
+    }
+    return nullptr;
 }
 
 void Book::printBookEdges() const
