@@ -41,7 +41,17 @@ GetBestBid/Offer – O(1)
 
 ### Performance: Test Done with Intel i7-8565U CPU @ 1.80GHz
 
+We are primarily tested 4 operations:
+```
+AddMarketOrder - adding a market order to be executed immediately
+AddLimitOrder - adding a limit order (not marketable)
+CancalLimitOrder - adding a limit order (marketable)
+AddLimitInMarket - adding a limit order (marketable)
+```
+
 The timestamps (in nanoseconds) of each directive to the limit order book is recorded and the difference is noted as the latency of an directive.
+
+ <img src="[url](https://github.com/user-attachments/assets/b35d15dd-f2a2-47c6-928f-b6ae546248e2)" alt="alt text" width="500" height="500">
 
 ![Latency Histogram](https://github.com/user-attachments/assets/b35d15dd-f2a2-47c6-928f-b6ae546248e2)\
 
