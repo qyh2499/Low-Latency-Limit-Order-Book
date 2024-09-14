@@ -45,6 +45,11 @@ Low-Latency-Limit-Order-Book\
 ```
 
 ### Architecture ([reference](https://web.archive.org/web/20110219163448/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/)):
+
+The central idea is to separate Order, Limit, and Book classes. An instance of Order class represents an order supplied by the market. A Limit instance contains a collection of Orders at the same limit price. Book tracks all the Limits and provides user functions to modify the limit order book. 
+
+The idea is to use a AVL tree of Limit objects ordered by limitPrice for each side (buy and sell) of the book, hence there will be two trees. Each Limit object then contains a double-end linked list of Order objects, where the headOrder is the first order to arrive in the book.
+
 ```
 Order // Representing a single order
   int idNumber;
@@ -69,8 +74,6 @@ Book
   Limit *buyTree;
   Limit *sellTree;
 ```
-
-The idea is to use a AVL tree of Limit objects ordered by limitPrice for each side (buy and sell) of the book. Each Limit object then contains a double-end linked list of Order objects, where the headOrder is the first order to arrive in the book.
 
 **Using this structure, we expect the following performance on average time:**
 
