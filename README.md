@@ -43,6 +43,9 @@ GetBestBid/Offer – O(1)
 
 The timestamps (in nanoseconds) of each directive to the limit order book is recorded and the difference is noted as the latency of an directive.
 
+![Latency Histogram](https://github.com/user-attachments/assets/b35d15dd-f2a2-47c6-928f-b6ae546248e2)
+![Order Type Latency](https://github.com/user-attachments/assets/9e867451-61e8-4c77-925c-d916c6e8e5f9)
+
 
 ### Primary Sources:
 - [WK's High Frequency Trading Blog](https://web.archive.org/web/20110219163448/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/)
