@@ -1,6 +1,48 @@
 # Low Latency Limit Order Book
 Low latency limit order book in C++
 
+### Project Tree
+
+```
+│   main.cpp
+│   CMakeLists.txt
+│
+├───AVL
+│       AVLTree.hpp
+│       AVLTreeNode.hpp
+│
+├───data_raw
+│       initialPerformance.txt
+│       initialRandomOrders.txt
+│       performance.txt
+│       randomOrders.txt
+│
+├───order_book
+│       Book.cpp
+│       Book.hpp
+│       Limit.cpp
+│       Limit.hpp
+│       Order.cpp
+│       Order.hpp
+│
+├───order_generator
+│       orderGenerator.cpp
+│       orderGenerator.hpp
+│       orderProcessTimer.cpp
+│       orderProcessTimer.hpp
+│
+├───performance
+│       Latency Histogram.png
+│       Order Type Latency.png
+│       perform.ipynb
+│       Type Frequency.png
+│
+└───tests
+        AVLtest.cpp
+        Booktest.cpp
+        Booktestlimit.cpp
+```
+
 ### Architecture ([reference](https://web.archive.org/web/20110219163448/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/)):
 ```
 Order // Representing a single order
