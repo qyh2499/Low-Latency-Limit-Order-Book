@@ -91,7 +91,7 @@ We are primarily tested 4 operations:
 ```
 AddMarketOrder - adding a market order to be executed immediately
 AddLimitOrder - adding a limit order (not marketable)
-CancalLimitOrder - adding a limit order (marketable)
+CancalLimitOrder - canceling an existing a limit order in the books
 AddLimitInMarket - adding a limit order (marketable)
 ```
 
