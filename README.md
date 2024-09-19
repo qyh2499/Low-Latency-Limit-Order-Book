@@ -84,6 +84,19 @@ Execute Order – O(1)
 GetVolumeAtLimit – O(1)
 GetBestBid/Offer – O(1)
 ```
+### Performance: Test Done on compute cluster
+
+We are primarily tested 4 operations:
+```
+AddMarketOrder - adding a market order to be executed immediately
+AddLimitOrder - adding a limit order (not marketable)
+CancalLimitOrder - canceling an existing a limit order in the books
+AddLimitInMarket - adding a limit order (marketable)
+```
+
+The timestamps (in nanoseconds) of each directive to the limit order book is recorded and the difference is noted as the latency of an directive.
+
+<img src="https://github.com/user-attachments/assets/79c6fca3-5e1d-47d3-9cdf-09d05d34dc88" width="800" height="500">
 
 ### Performance: Test Done with Intel i7-8565U CPU @ 1.80GHz
 
